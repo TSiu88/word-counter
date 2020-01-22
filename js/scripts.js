@@ -22,12 +22,26 @@ function countWords(array){
   }
   console.log(arrayItem);
   console.log(arrayCount);
+  var jointArray = joinArrays(arrayItem, arrayCount);
+  return jointArray;
+}
+
+function joinArrays(item, count){
+  var joinedArray =[];
+  for(i=0; i<item.length; i++){
+    var string1 = item[i];
+    var string2 = count[i];
+    var joiningString = string1 + " " + string2;
+    joinedArray.push(joiningString);
+  }
+  return joinedArray;
+
 }
 
 $(document).ready(function(){
   $("#form1").submit(function(event){
     var string = $("#paragraph").val();
-    var regex = /[.,?!]/g;
+    var regex = /[.,?!\r]/g;
     
 
     string = string.replace(regex, "");
@@ -38,7 +52,14 @@ $(document).ready(function(){
     words.sort();
     console.log(words);
 
-    countWords(words);
+    var results = countWords(words);
+    console.log(results);
+
+    results.forEach(function(result){
+      $("#list").append("<li>" + result + "</li>");
+    });
+    
+    $("#output").show();
 
     event.preventDefault();
   });
